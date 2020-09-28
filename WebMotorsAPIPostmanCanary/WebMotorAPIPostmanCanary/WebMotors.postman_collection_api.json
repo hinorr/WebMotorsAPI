@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "904485ab-e231-4856-a738-d192a06544bb",
+		"name": "WebMotors",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConsultarModeloPelaMarca",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94abb357-57ae-463c-a2b3-25c906056bde",
+						"exec": [
+							"//Consultar os modelos pela marca city (id=2)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"responseJSON = JSON.parse(responseBody);\r",
+							"pm.test(\"Todos os Modelos devem ser da Marca City\",function(){  \r",
+							"    for(var i = 0; i < responseJSON.length; i++){\r",
+							"        if(responseJSON[i].MakeID !== 2){\r",
+							"            pm.response.to.be.clientError;            \r",
+							"            return;\r",
+							"        }\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafioonline.webmotors.com.br/api/OnlineChallenge/Model?MakeID=2",
+					"protocol": "http",
+					"host": [
+						"desafioonline",
+						"webmotors",
+						"com",
+						"br"
+					],
+					"path": [
+						"api",
+						"OnlineChallenge",
+						"Model"
+					],
+					"query": [
+						{
+							"key": "MakeID",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarVersaoPeloModelo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b06b4644-eb33-4200-a84d-3afd8c25d68b",
+						"exec": [
+							"//Consultar as versoes pelo modelo\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"responseJSON = JSON.parse(responseBody);\r",
+							"pm.test(\"Todas as versoes devem ser do modelo Honda\",function(){  \r",
+							"    for(var i = 0; i < responseJSON.length; i++){\r",
+							"        if(responseJSON[i].ModelID !== 2){\r",
+							"            pm.response.to.be.clientError;            \r",
+							"            return;\r",
+							"        }\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafioonline.webmotors.com.br/api/OnlineChallenge/Version?ModelID=2",
+					"protocol": "http",
+					"host": [
+						"desafioonline",
+						"webmotors",
+						"com",
+						"br"
+					],
+					"path": [
+						"api",
+						"OnlineChallenge",
+						"Version"
+					],
+					"query": [
+						{
+							"key": "ModelID",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarTodosVeiculosPrimeiraPagina",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a46abbce-f912-42a3-a959-bb55acdb6cab",
+						"exec": [
+							"//Consultar todos os veiculos cadastrados\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"responseJSON = JSON.parse(responseBody);\r",
+							"pm.test(\"Somente a Primeira Pagina de Veiculos\",function(){     \r",
+							"        if(responseJSON.length !== 10){\r",
+							"            pm.response.to.be.clientError;            \r",
+							"            return;\r",
+							"        \r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafioonline.webmotors.com.br/api/OnlineChallenge/Vehicles?Page=1",
+					"protocol": "http",
+					"host": [
+						"desafioonline",
+						"webmotors",
+						"com",
+						"br"
+					],
+					"path": [
+						"api",
+						"OnlineChallenge",
+						"Vehicles"
+					],
+					"query": [
+						{
+							"key": "Page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarTodasMarca",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "faa3a548-f665-43ec-8144-6fedab2d426f",
+						"exec": [
+							"//Consultar todas as Marcas cadastradas\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"responseJSON = JSON.parse(responseBody);\r",
+							"tests[\"Marca - Chevrolet\"] = responseJSON[0].Name === \"Chevrolet\"\r",
+							"tests[\"Marca - Honda\"] = responseJSON[1].Name === \"Honda\"\r",
+							"tests[\"Marca - Ford\"] = responseJSON[2].Name === \"Ford\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafioonline.webmotors.com.br/api/OnlineChallenge/Make",
+					"protocol": "http",
+					"host": [
+						"desafioonline",
+						"webmotors",
+						"com",
+						"br"
+					],
+					"path": [
+						"api",
+						"OnlineChallenge",
+						"Make"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
